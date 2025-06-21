@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 
-def download_multiple_stocks(tickers, start="2022-01-01", end="2022-12-31", save_path="data/raw"):
+def download_multiple_stocks(tickers, start="2020-01-01", end="2023-12-31", save_path="data/raw"):
     # Create folder if it doesn't exist
     os.makedirs(save_path, exist_ok=True)
 
