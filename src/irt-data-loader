@@ -1,0 +1,23 @@
+import yfinance as yf
+import pandas as pd
+import os
+
+def download_multiple_stocks_15m(tickers, save_path="data/raw"):
+    os.makedirs(save_path, exist_ok=True)
+    data = yf.download(
+        tickers,
+        period="7d",              # '7d' is the max period for 15m interval
+        interval="15m",
+        group_by="ticker",
+        auto_adjust=True,
+        threads=True
+    )
+    for ticker in tickers:
+        df = data[ticker].copy()
+        df.dropna(inplace=True)
+        df.to_csv(f"{save_path}/{ticker}_15m.csv")
+        print(f"Saved {ticker} to {save_path}/{ticker}_15m.csv")
+
+if __name__ == "__main__":
+    tickers = ["JPM", "BAC", "C", "WFC", "GS", "MS", "USB", "PNC", "TFC", "COF", "BPOP"]
+    download_multiple_stocks_15m(tickers)
